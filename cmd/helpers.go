@@ -284,6 +284,6 @@ func removeEligibleTorrents(log *logrus.Entry, c client.Interface, torrents map[
 	log.Infof("Ignored torrents: %d", ignoredTorrents)
 	log.WithField("reclaimed_space", humanize.IBytes(uint64(removedTorrentBytes))).
 		Infof("Removed torrents: %d initially removed, %d cross-seeded torrents were canidates for removal, only %d of them removed and %d failures",
-			hardRemoveTorrents, len(canidates), removedCanidates, errorRemoveTorrents)
+			hardRemoveTorrents-removedCanidates, len(canidates), removedCanidates, errorRemoveTorrents)
 	return nil
 }
