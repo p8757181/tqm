@@ -21,9 +21,10 @@ import (
 /* Struct */
 
 type QBittorrent struct {
-	Url      *string `validate:"required"`
-	User     string
-	Password string
+	Url                       *string `validate:"required"`
+	User                      string
+	Password                  string
+	EnableAutoTmmAfterRelabel bool
 
 	// internal
 	log        *logrus.Entry
@@ -231,6 +232,12 @@ func (c *QBittorrent) SetTorrentLabel(hash string, label string) error {
 	// set label
 	if err := c.client.Torrent.SetCategories([]string{hash}, label); err != nil {
 		return fmt.Errorf("set torrent label: %v: %w", label, err)
+	}
+
+	if c.EnableAutoTmmAfterRelabel {
+		if err := c.client.Torrent.SetAutomaticManagement([]string{hash}, true); err != nil {
+			return fmt.Errorf("enable autotmm: %w", err)
+		}
 	}
 
 	return nil
