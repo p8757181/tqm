@@ -33,6 +33,10 @@ clients:
     url: https://qbittorrent.domain.com/
     user: user
     password: password
+    # NEW: If this option is set to true, AutoTmm aka Auto Torrent Managment Mode,
+    # will be enabled for torrents after a relabel.
+    # This ensures the torrent is also moved in the filesystem to the new category path, and not only changes category in qbit
+    # enableAutoTmmAfterRelabel: true
 filters:
   default:
     ignore:
