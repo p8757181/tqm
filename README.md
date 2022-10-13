@@ -166,6 +166,41 @@ HasAnyTag(tags ...string) bool // True if torrent has at least one tag specified
 Log(n float64) float64 // The natural logarithm function
 ```
 
+## BypassIgnoreIfUnregistered
+If the top level config option `bypassIgnoreIfUnregistered` is set to `true`, unregistered torrents will not be ignored.
+This helps making the config less verbose, so this:
+```yaml
+filters:
+  default:
+    ignore:
+      # general
+      - TrackerStatus contains "Tracker is down"
+      - Downloaded == false && !IsUnregistered()
+      - SeedingHours < 26 && !IsUnregistered()
+      # permaseed / un-sorted (unless torrent has been deleted)
+      - Label startsWith "permaseed-" && !IsUnregistered()
+      # Filter based on qbittorrent tags (only qbit at the moment)
+      - '"permaseed" in Tags && !IsUnregistered()'
+```
+can turn into this:
+```yaml
+bypassIgnoreIfUnregistered: true
+
+filters:
+  default:
+    ignore:
+      # general
+      - TrackerStatus contains "Tracker is down"
+      - Downloaded == false
+      - SeedingHours < 26
+      # permaseed / un-sorted (unless torrent has been deleted)
+      - Label startsWith "permaseed-"
+      # Filter based on qbittorrent tags (only qbit at the moment)
+      - '"permaseed" in Tags
+```
+
+**Note:** If `TrackerStatus contains "Tracker is down"` then a torrent will not be considered unregistered anyways and will be ignored when tracker is down assuming the above filters.
+
 ## Supported Clients
 - Deluge
 - qBittorrent
