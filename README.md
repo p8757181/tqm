@@ -117,8 +117,9 @@ Currently implements:
 The language definition used in the configuration filters is available [here](https://github.com/antonmedv/expr/blob/586b86b462d22497d442adbc924bfb701db3075d/docs/Language-Definition.md)
 
 ## Filterable Fields
-The following fields (along with their types) can be used in the configuration when filtering torrents:
+The following torrent fields (along with their types) can be used in the configuration when filtering torrents:
 ```go
+type Torrent struct {
 	Hash            string  
 	Name            string  
 	Path            string  
@@ -145,11 +146,12 @@ The following fields (along with their types) can be used in the configuration w
 
 	TrackerName   string
 	TrackerStatus string
+}
 ```
 
 Number fields of types `int64`, `float32` and `float64` support [arithmetic](https://github.com/antonmedv/expr/blob/586b86b462d22497d442adbc924bfb701db3075d/docs/Language-Definition.md#arithmetic-operators) and [comparison](https://github.com/antonmedv/expr/blob/586b86b462d22497d442adbc924bfb701db3075d/docs/Language-Definition.md#comparison-operators) operators.
 
-Fields of type string support [string operators](https://github.com/antonmedv/expr/blob/586b86b462d22497d442adbc924bfb701db3075d/docs/Language-Definition.md#string-operators).
+Fields of type `string` support [string operators](https://github.com/antonmedv/expr/blob/586b86b462d22497d442adbc924bfb701db3075d/docs/Language-Definition.md#string-operators).
 
 Fields of type `[]string` (lists) such as the `Tags` and `Files` fields support [membership checks](https://github.com/antonmedv/expr/blob/586b86b462d22497d442adbc924bfb701db3075d/docs/Language-Definition.md#membership-operators) and various [built in functions](https://github.com/antonmedv/expr/blob/586b86b462d22497d442adbc924bfb701db3075d/docs/Language-Definition.md#builtin-functions).
 
