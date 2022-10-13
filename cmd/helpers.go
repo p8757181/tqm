@@ -220,7 +220,7 @@ func removeEligibleTorrents(log *logrus.Entry, c client.Interface, torrents map[
 			log.WithError(err).Errorf("Failed determining whether to ignore: %+v", t)
 			delete(torrents, h)
 			continue
-		} else if ignore {
+		} else if ignore && !(config.Config.BypassIgnoreIfUnregistered && t.IsUnregistered()) {
 			// torrent met ignore filter
 			log.Tracef("Ignoring torrent %s: %s", h, t.Name)
 			delete(torrents, h)
