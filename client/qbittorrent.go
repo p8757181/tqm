@@ -173,6 +173,8 @@ func (c *QBittorrent) GetTorrents() (map[string]config.Torrent, error) {
 				"uploading",
 				"stalledUP",
 			}, string(t.State), true),
+			DownSpeed:      float32(td.DlSpeed),
+			UpSpeed:        float32(td.UpSpeed),
 			Ratio:          float32(td.ShareRatio),
 			AddedSeconds:   addedTimeSecs,
 			AddedHours:     float32(addedTimeSecs) / 60 / 60,
@@ -182,7 +184,9 @@ func (c *QBittorrent) GetTorrents() (map[string]config.Torrent, error) {
 			SeedingDays:    float32(td.SeedingTime.Seconds()) / 60 / 60 / 24,
 			Label:          t.Category,
 			Seeds:          int64(td.SeedsTotal),
+			ActiveSeeds:    int64(td.Seeds),
 			Peers:          int64(td.PeersTotal),
+			ActivePeers:    int64(td.Peers),
 			// free space
 			FreeSpaceGB:  c.GetFreeSpace,
 			FreeSpaceSet: c.freeSpaceSet,

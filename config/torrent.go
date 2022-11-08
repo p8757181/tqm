@@ -32,6 +32,8 @@ type Torrent struct {
 	Tags            []string `json:"Tags"`
 	Downloaded      bool     `json:"Downloaded"`
 	Seeding         bool     `json:"Seeding"`
+	DownSpeed       float32  `json:"DownSpeed"`
+	UpSpeed         float32  `json:"UpSpeed"`
 	Ratio           float32  `json:"Ratio"`
 	AddedSeconds    int64    `json:"AddedSeconds"`
 	AddedHours      float32  `json:"AddedHours"`
@@ -41,7 +43,9 @@ type Torrent struct {
 	SeedingDays     float32  `json:"SeedingDays"`
 	Label           string   `json:"Label"`
 	Seeds           int64    `json:"Seeds"`
+	ActiveSeeds     int64    `json:"ActiveSeeds"`
 	Peers           int64    `json:"Peers"`
+	ActivePeers     int64    `json:"ActivePeers"`
 
 	// set by client on GetCurrentFreeSpace
 	FreeSpaceGB  func() float64 `json:"-"`

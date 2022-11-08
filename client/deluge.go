@@ -169,6 +169,8 @@ func (c *Deluge) GetTorrents() (map[string]config.Torrent, error) {
 			Files:           files,
 			Downloaded:      t.TotalDone == t.TotalSize,
 			Seeding:         t.IsSeed,
+			DownSpeed:       float32(t.DownloadPayloadRate),
+			UpSpeed:         float32(t.UploadPayloadRate),
 			Ratio:           t.Ratio,
 			AddedSeconds:    t.ActiveTime,
 			AddedHours:      float32(t.ActiveTime) / 60 / 60,
@@ -178,7 +180,9 @@ func (c *Deluge) GetTorrents() (map[string]config.Torrent, error) {
 			SeedingDays:     float32(t.SeedingTime) / 60 / 60 / 24,
 			Label:           label,
 			Seeds:           t.TotalSeeds,
+			ActiveSeeds:     t.NumSeeds,
 			Peers:           t.TotalPeers,
+			ActivePeers:     t.NumPeers,
 			// free space
 			FreeSpaceGB:  c.GetFreeSpace,
 			FreeSpaceSet: c.freeSpaceSet,
